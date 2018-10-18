@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://icefox0801.github.io/materialize-autocomplete/ -->
+<!-- https://github.com/icefox0801/materialize-autocomplete/issues/41 -->
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>ShortcutR - Find shortcuts for any website or application!</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="css/custom.css" type="text/css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css" rel="stylesheet"/>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+</head>
+
+<body>
+<style>
+
+
+    footer.page-footer.orange {
+        padding: 0px;
+    }
+</style>
+
+
+<style>
+    .autocomplete {
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .autocomplete .ac-users {
+        padding-top: 10px;
+    }
+
+    .autocomplete .ac-users .chip {
+        -ms-flex: auto;
+        flex: auto;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    .autocomplete .ac-users .chip:last-child {
+        margin-right: 5px;
+    }
+
+    .autocomplete .ac-dropdown .ac-hover {
+        background: #eee;
+    }
+
+    .autocomplete .ac-input {
+        -ms-flex: 1;
+        flex: 1;
+        min-width: 150px;
+        padding-top: 0.6rem;
+    }
+
+    .autocomplete .ac-input input {
+        height: 2.4rem;
+    }
+</style>
+
+
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">ShortcutR</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Help</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Help</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Shortcutrs</h1>
+        <div class="row center">
+            <h5 class="header col s12 light">Search for a website or application</h5>
+        </div>
+        <div class="row center">
+            <form class="col s12" action="ree" type="GET">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <div class="autocomplete" id="single">
+                            <div class="ac-input">
+                                <input type="text" id="singleInput" placeholder="Please input some letters"
+                                       data-activates="singleDropdown" data-beloworigin="true" autocomplete="off">
+                            </div>
+                            <ul id="singleDropdown" class="dropdown-content ac-dropdown"></ul>
+                        </div>
+                        <label class="active" for="singleInput">Single autocomplete: </label>
+                    </div>
+                </div>
+
+                <button type="submita" id="download-button" class="btn-large waves-effect waves-light orange">Get
+                    Started
+                </button>
+            </form>
+        </div>
+        <br><br>
+
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="section">
+
+
+    </div>
+    <br><br>
+</div>
+
+<footer class="page-footer orange">
+    <div class="container">
+
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Copyright <a class="orange-text text-lighten-3" href="#">Shortcutr</a>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        //Autocomplete
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/app_list',
+                success: function (response) {
+                    var countryArray = response;
+                    var dataCountry = {};
+                    for (var i = 0; i < countryArray.length; i++) {
+                        dataCountry[countryArray[i].name] = countryArray[i].flag; //countryArray[i].flag or null
+                    }
+                    $('input#singleInputAAA').autocomplete({
+                        data: dataCountry,
+                        limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                    });
+                }
+            });
+        });
+    });
+
+
+
+     $(document).ready(function(){
+    $('input#singleInput').autocomplete({
+        limit:5,
+
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        "Google": 'https://placehold.it/250x250'
+      },
+    });
+  });
+
+</script>
+</body>
+</html>

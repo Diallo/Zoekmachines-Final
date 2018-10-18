@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 
+
 app = Flask(__name__)
 
 
@@ -16,6 +17,7 @@ def search():
 @app.route('/res')
 def result():
     return render_template('result.html')
+
 
 
 app.run(debug=True, host='0.0.0.0')
