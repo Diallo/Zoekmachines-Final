@@ -1,0 +1,5 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    Query: {{ request.args.get('q') }}
+{% endblock %}
