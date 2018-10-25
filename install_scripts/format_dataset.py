@@ -8,7 +8,7 @@ import json
 all_data = []
 
 
-
+index = 0
 
 with open('../data/ted_main.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
@@ -21,7 +21,8 @@ with open('../data/ted_main.csv') as csv_file:
         else:
 
             temp_dict = {}
-            temp_dict["_id"] = row[15]
+            temp_dict["_id"] = index
+            index += 1
             for i,col in enumerate(row):
 
                 temp_dict[header_title[i]] = col
