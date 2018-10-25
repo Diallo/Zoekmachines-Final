@@ -8,7 +8,6 @@ import json
 all_data = []
 
 
-import pprint
 
 
 with open('../data/ted_main.csv') as csv_file:
@@ -16,16 +15,23 @@ with open('../data/ted_main.csv') as csv_file:
     line_count = 0
     header_title = None
     for row in csv_reader:
-        if line_count <2 :
+        if line_count <1 :
             header_title = row.copy()
             line_count += 1
         else:
 
             temp_dict = {}
+            temp_dict["_id"] = row[15]
             for i,col in enumerate(row):
+
                 temp_dict[header_title[i]] = col
+
+
             all_data.append(temp_dict.copy())
             line_count+=1
+
+
+
 
 
 with open('../data/transcripts.csv') as csv_file:
@@ -43,11 +49,9 @@ with open('../data/transcripts.csv') as csv_file:
             line_count+=1
 
 
-all_json = {}
-for data in all_data:
-    all_json[data['url'].strip()] = data
 
 
 
-f = open("talks_data.json", "w")
-f.write(json.dumps(all_json))
+
+f = open("../data/talks_data.json", "w")
+f.write(json.dumps(all_data))
