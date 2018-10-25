@@ -11,6 +11,7 @@ app.elasticsearch = Elasticsearch(["http://localhost:9200"])
 from src.search.functions import search_all,search_multiple
 from src.initialization import start_index
 
+from src.models.ted_talk import TedTalk
 
 
 @app.route("/searcher")
@@ -74,7 +75,9 @@ def start_indexing():
         return "Indexing done"
 
 
-
+@app.route('/<path:path>')
+def static_file(path):
+    return app.send_static_file(path)
 
 
 @app.route('/')
@@ -90,6 +93,15 @@ def search():
 @app.route('/res')
 def result():
     return render_template('result.html')
+    
+
+@app.route('/talk/<int:talk_id>')
+def talk(talk_id):
+    try:
+        t = TedTalk(talk_id, True)
+    except ValueError as e:
+        return str(e)
+    return render_template('talk.html', talk=t)
 
 
 

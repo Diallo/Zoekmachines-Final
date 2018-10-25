@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block tile %}{{ talk.name }}{% endblock %}
+
+{% block body %}
+    <div class="talk">
+        <div class="title">{{ talk.name }}</div>
+        <div class="speaker">by: {{ talk.data['main_speaker'] }}, {{ talk.data['speaker_occupation'] }}</div>
+        <hr />
+        <div class="info_wrap">
+            <div class="video_wrap">
+                <div class="video">
+                    <iframe src="{{ talk.embed }}" class="video" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="desc">
+                <span class="about">About:</span>
+                <hr />
+                {{ talk.data['description'] }}
+                <hr />
+                <div class="seg">
+                    <span class="lable">Filmed on:</span> {{ talk.fdate }}
+                </div>
+                <div class="seg">
+                    <span class="lable">Published on:</span> {{ talk.pdate }}
+                </div>
+                <div class="seg">
+                    <span class="lable">Tags:</span> {{ talk.tags }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
