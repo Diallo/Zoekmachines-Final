@@ -2,12 +2,52 @@
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch, RequestError
 
+
+
 app = Flask(__name__)
 app.elasticsearch = Elasticsearch(["http://localhost:9200"])
 
+
+from src.search.functions import search_all,search_multiple
 from src.initialization import start_index
 
 
+
+@app.route("/searcher")
+def searcher():
+    return search_all("Downside Drug Dealer Being")
+
+@app.route("/mult_search")
+def  mult_search():
+    """Search in multiple fields within ted talks
+
+
+    Possibilities are:
+
+    1.) searching by event (ted/x event)   X
+    2.) Searching in duration range (minutes is passed converted to seconds)
+    3.) Search in range of film date
+    4.) Search by name of speaker (exact)    X
+    5.) Search in Title (Name field     X
+    6.) Search by speaker occupation   X
+    7.) Search by views range    X
+    8.) regular description search also
+    9.) Search by a list of tags  X
+    :return:
+    """
+
+    fields = []
+
+    fields.append({'duration':{"min":1160,"max":1200}})
+    fields.append({'event':'TED2006'})
+    fields.append({'film_date': {"min": 	1140825500, "max": 	1140825900}}) # Unix timestamp
+    fields.append({'main_speaker':'Ken Robinson'})
+    fields.append({'name':"schools kill"})
+    fields.append({'speaker_occupation':'Author'})
+    fields.append({'tags':['children','creativity']})
+    fields.append({'views': {"min": 5, "max": 47527110}})
+
+    return search_multiple(fields)
 
 @app.route("/create_index")
 def create_index():
