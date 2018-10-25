@@ -2,10 +2,12 @@
 2.) Make transcript searching optional
 3.) Add advanced search options to GUI
 4.) Faceted search
-5.) Represent each document/article with a word cloud
-6.) Do evaluations
+5.) Do evaluations
+
 
 =======]
 Auto complete search (?)
 Visualize hits over time
 TODO: DOCS WITHOUT TRANSCRIPT
+TODO: Remove laughter/crowd reactions
+TODO: Fix the advanced search
