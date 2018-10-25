@@ -35,7 +35,9 @@ def start_indexing():
         return "Indexing done"
 
 
-
+@app.route('/<path:path>')
+def static_file(path):
+    return app.send_static_file(path)
 
 
 @app.route('/')
@@ -55,8 +57,11 @@ def result():
 
 @app.route('/talk/<int:talk_id>')
 def talk(talk_id):
-    t = TedTalk(talk_id)
-    return render_template('talk.html', t_id=talk_id)
+    try:
+        t = TedTalk(talk_id, True)
+    except ValueError as e:
+        return str(e)
+    return render_template('talk.html', talk=t)
 
 
 

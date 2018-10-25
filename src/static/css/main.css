@@ -22,7 +22,7 @@ hr {
     height: 1px;
     border: 0;
     border-top: 1px solid #e62b1e;
-    margin: 1em 0;
+    margin: 0.5em 0;
     padding: 0; 
 }
 
@@ -38,7 +38,7 @@ hr {
 .wrap {
     width: 60vw;
     min-width: 756px;
-    height: calc(100vh - 25px);
+    min-height: calc(100vh - 45px);
     margin-left: auto;
     margin-right: auto;
     /*background-color: blue;*/
@@ -136,4 +136,67 @@ hr {
     display: block;
     color: black;
     font-size: 12pt;
+}
+
+/* Talk page */
+
+.talk hr {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.talk {
+    width: 100%;
+}
+
+.talk .title {
+    font-size: 35pt;
+    color: black;
+}
+
+.talk .speaker {
+    font-size: 12pt;
+    font-style: italic;
+    color: black;
+}
+
+.talk .info_wrap {
+    display: inline-block;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.video_wrap, .video {
+    float: left;
+    width: 60%;
+}
+
+.video {
+    width: 98%;
+    height: calc(((100vh * 0.6 * 0.98) / 16) * 9);
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.talk .desc {
+    float: left;
+    width: calc(40% - 10px);
+    padding: 5px;
+    background-color: #dbdbdb;
+}
+
+.talk .desc .about {
+    display: block;
+    font-size: 15pt;
+}
+
+.talk .desc .seg {
+    display: block;
+    margin-top: 3px;
+}
+
+.talk .desc .seg .lable {
+    font-weight: bold;
 }
