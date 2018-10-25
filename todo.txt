@@ -1,2 +1,5 @@
 1.) Start elasticsearch/ after installinbg
 2.)sudo systemctl enable elasticsearch.service
+
+
+3.) Memcached

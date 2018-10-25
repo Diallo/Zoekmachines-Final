@@ -49,13 +49,11 @@ def create_index():
 
     }
 
+
     app.elasticsearch.indices.create(
         index="testdata",
-
         body=body
-
     )
-
 
 def index(data=config.DEFAULT_DATA_PATH):
     """Index all the data
