@@ -2,6 +2,8 @@
 Description
 """
 
-class TedTalk:
+import config
 
-    pass
+class TedTalk:
+    def __init__(self, talk_id):
+        print(config.DEFAULT_DATA_PATH)

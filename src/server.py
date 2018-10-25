@@ -7,6 +7,7 @@ app.elasticsearch = Elasticsearch(["http://localhost:9200"])
 
 from src.initialization import start_index
 
+from src.models.ted_talk import TedTalk
 
 
 @app.route("/create_index")
@@ -50,6 +51,12 @@ def search():
 @app.route('/res')
 def result():
     return render_template('result.html')
+    
+
+@app.route('/talk/<int:talk_id>')
+def talk(talk_id):
+    t = TedTalk(talk_id)
+    return render_template('talk.html', t_id=talk_id)
 
 
 
