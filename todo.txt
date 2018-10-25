@@ -1,5 +1,8 @@
-1.) Start elasticsearch/ after installinbg
-2.)sudo systemctl enable elasticsearch.service
+1.) Memcached
+2.) Make transcript searching optional
+3.) Add advanced search options to GUI
+4.) Faceted search
+5.) Represent each document/article with a word cloud
+6.) Do evaluations
 
-
-3.) Memcached
+=======]
