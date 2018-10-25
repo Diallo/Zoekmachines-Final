@@ -5,7 +5,7 @@ import json
 
 import config
 from src.server import app
-
+from elasticsearch import helpers
 
 def create_index():
 
@@ -20,7 +20,7 @@ def create_index():
             'generated': {
 
                 "properties": {
-                    "_id" : {"type": "integer"},
+
                     "comments": {"type": "integer"},
                     "description": {"type": "text"},
                     "duration": {"type": "integer"},
@@ -62,7 +62,10 @@ def index(data=config.DEFAULT_DATA_PATH):
     """
     with open(data) as raw_data:
         json_docs = json.load(raw_data)
-        for json_doc in json_docs:
-            my_id = json_doc.pop('_id', None)
 
-            app.elasticsearch.index(index='testdata', doc_type='generated', id=my_id, body=json.dumps(json_doc))
+        helpers.bulk(app.elasticsearch, json_docs, index='testdata', doc_type='generated')
+
+        # for json_doc in json_docs:
+        #     my_id = json_doc.pop('_id', None)
+        #
+        #     app.elasticsearch.index(index='testdata', doc_type='generated', id=my_id, body=json.dumps(json_doc))
