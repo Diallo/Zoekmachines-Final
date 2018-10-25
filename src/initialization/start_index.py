@@ -20,7 +20,7 @@ def create_index():
             'generated': {
 
                 "properties": {
-
+                    "_id" : {"type": "integer"},
                     "comments": {"type": "integer"},
                     "description": {"type": "text"},
                     "duration": {"type": "integer"},
