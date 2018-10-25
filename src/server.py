@@ -13,9 +13,6 @@ from src.initialization import start_index
 from src.models.ted_talk import TedTalk
 
 
-@app.route("/searcher")
-def searcher():
-    return search_all("Downside Drug Dealer Being")
 
 @app.route("/mult_search")
 def  mult_search():
@@ -36,18 +33,92 @@ def  mult_search():
     :return:
     """
 
+
+    """
+    
+    <input class="field" type="text" placeholder="Search Term" name="search_term"/>
+
+                <input class="field" type="text" placeholder="name_of_talk" name="name_of_talk"/>
+                <input class="field" type="text" placeholder="speaker_name" name="speaker_name"/>
+                <input class="field" type="text" placeholder="speaker_occupation" name="speaker_occupation"/>
+                <input class="field" type="text" placeholder="event" name="event"/>
+                <input class="field" type="text" placeholder="tags" name="tags"/>
+                <input class="field" type="number" placeholder="min_views" name="min_views"/>
+                <input class="field" type="number" placeholder="max_views" name="max_views"/>
+                <input class="field" type="date" placeholder="min_date" name="min_date"/>
+                <input class="field" type="date" placeholder="max_date" name="max_date"/>
+                <input class="field" type="number" placeholder="min_duration(minutes)" name="min_duration"/>
+                <input class="field" type="number" placeholder="max_duration(minutes)" name="max_duration"/>
+
+                <input class="nbut" type="submit" value="Search"/>
+                
+    """
+
+
+
+
     fields = []
+    #TODO search term
+    # TODO SHOW USER QUERY USED
+    # TODO format fields
 
-    fields.append({'duration':{"min":1160,"max":1200}})
-    fields.append({'event':'TED2006'})
-    fields.append({'film_date': {"min": 	1140825500, "max": 	1140825900}}) # Unix timestamp
-    fields.append({'main_speaker':'Ken Robinson'})
-    fields.append({'name':"schools kill"})
-    fields.append({'speaker_occupation':'Author'})
-    fields.append({'tags':['children','creativity']})
-    fields.append({'views': {"min": 5, "max": 47527110}})
 
-    return search_multiple(fields)
+    name_of_talk = request.args.get('name_of_talk').strip()
+    if name_of_talk is not None and name_of_talk != "":
+        fields.append({'name': name_of_talk})
+
+    speaker_name = request.args.get('speaker_name').strip()
+    if speaker_name is not None and speaker_name != "":
+        fields.append({'main_speaker': speaker_name})
+
+    speaker_occupation = request.args.get('speaker_occupation').strip()
+    if speaker_occupation is not None and speaker_occupation != "":
+        fields.append({'speaker_occupation': speaker_occupation})
+
+
+    event = request.args.get('event').strip()
+    if event is not None and event != "":
+        fields.append({'event': event})
+
+    tags = request.args.get('tags').strip()
+    if tags is not None and tags != "":
+        fields.append({'tags': tags.split(",")})
+
+
+    min_views = request.args.get('min_views').strip()
+    max_views = request.args.get('max_views').strip()
+    if min_views is None or min_views == "":
+        min_views = 0
+    if max_views is None or max_views == "":
+        max_views=500000000
+    fields.append({'views': {"min": int(min_views), "max": int(max_views)}})
+
+
+
+    min_duration =request.args.get('min_duration').strip()
+    max_duration = request.args.get('max_duration').strip()
+    if min_duration is None or min_duration == "":
+        min_duration = 0
+    if max_duration is None or max_duration == "":
+        max_duration = 500000
+    fields.append({'duration': {"min": int(min_duration), "max": int(max_duration)}})
+
+
+    # TODO
+    # fields.append({'film_date': {"min": 	1140825500, "max": 	1140825900}}) # Unix timestamp
+
+
+
+    # fields.append({'views': {"min": 5, "max": 47527110}})
+
+
+    print(fields)
+    res = search_multiple(fields)
+    r_str = ""
+    for t_id in res:
+        talk = TedTalk(t_id)
+        r_str += talk.res_el()
+    return render_template('result.html', r=r_str)
 
 @app.route("/create_index")
 def create_index():

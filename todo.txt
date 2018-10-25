@@ -6,3 +6,5 @@
 6.) Do evaluations
 
 =======]
+Auto complete search (?)
+Visualize hits over time

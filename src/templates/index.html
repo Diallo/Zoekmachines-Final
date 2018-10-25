@@ -3,12 +3,43 @@
 {% block tile %}Home{% endblock %}
 
 {% block body %}
-<div class="search">
-    <div class="swrap">
-        <form action="/res" method="get">
-        <input class="field" type="text" name="q"/>
-        <input class="nbut" type="submit" value="Search"/>
-    </form>
+    <div class="search">
+        <div class="swrap" id="defaultSearch">
+            <form action="/res" method="get">
+                <input class="field" type="text" name="q"/>
+                <input class="nbut" type="submit" value="Search"/>
+            </form>
+            <button class="nbut" onclick="showAdvanced()">Advanced Search</button>
+        </div>
+
+        <div class="swrap" id="hidden" style="display: none;">
+            <form action="/mult_search" method="get">
+                <input class="field" type="text" placeholder="Search Term" name="search_term"/>
+
+                <input class="field" type="text" placeholder="name_of_talk" name="name_of_talk"/>
+                <input class="field" type="text" placeholder="speaker_name" name="speaker_name"/>
+                <input class="field" type="text" placeholder="speaker_occupation" name="speaker_occupation"/>
+                <input class="field" type="text" placeholder="event" name="event"/>
+                <input class="field" type="text" placeholder="tags" name="tags"/>
+                <input class="field" type="number" placeholder="min_views" name="min_views"/>
+                <input class="field" type="number" placeholder="max_views" name="max_views"/>
+                <input class="field" type="date" placeholder="min_date" name="min_date"/>
+                <input class="field" type="date" placeholder="max_date" name="max_date"/>
+                <input class="field" type="number" placeholder="min_duration(minutes)" name="min_duration"/>
+                <input class="field" type="number" placeholder="max_duration(minutes)" name="max_duration"/>
+
+                <input class="nbut" type="submit" value="Search"/>
+            </form>
+            <button class="nbut" onclick="showAdvanced()">Simple Search</button>
+        </div>
     </div>
-</div>
+
+    <script>
+        function showAdvanced() {
+            $("#defaultSearch").toggle();
+            $("#hidden").toggle();
+            
+        }
+    </script>
+
 {% endblock %}
