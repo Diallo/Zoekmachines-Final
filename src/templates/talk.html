@@ -5,7 +5,7 @@
 {% block body %}
     <div class="talk">
         <div class="title">{{ talk.name }}</div>
-        <div class="speaker">by: {{ talk.data['main_speaker'] }}</div>
+        <div class="speaker">by: {{ talk.data['main_speaker'] }}, {{ talk.data['speaker_occupation'] }}</div>
         <hr />
         <div class="info_wrap">
             <div class="video_wrap">
@@ -23,6 +23,9 @@
                 </div>
                 <div class="seg">
                     <span class="lable">Published on:</span> {{ talk.pdate }}
+                </div>
+                <div class="seg">
+                    <span class="lable">Tags:</span> {{ talk.tags }}
                 </div>
             </div>
         </div>

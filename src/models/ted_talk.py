@@ -1,6 +1,7 @@
 """
 Description
 """
+import ast
 import config
 import json
 import requests
@@ -26,10 +27,15 @@ class TedTalk:
         # Get name without speaker
         self.name = self.data['name'].split(": ")[1]
         
+        # Get tag string
+        self.tags = ", ".join(ast.literal_eval(self.data['tags']))
+        
         # Get talk info
-        res = requests.get(f"https://www.ted.com/services/v1/oembed.json?url="
-                           f"{self.data['url']}")
-        self.info = json.loads(res.text)
+        try:
+            self.info = requests.get(f"https://www.ted.com/services/v1/oembed.json?url="
+                                     f"{self.data['url']}").json()
+        except Exception:
+            self.info = None
         
         # Convert fdate to human interpritable string
         fint = int(self.data['film_date'])
@@ -41,5 +47,14 @@ class TedTalk:
         
         # Get related talks if needed
         if get_related:
-            pass
+            self.related = []
+            for r in ast.literal_eval(self.data['related_talks']):
+                try:
+                    for t in data:
+                        if t['name'] == f"{r['speaker']}: {r['title']}":
+                            self.related.append(TedTalk(t['_id']))
+                            break
+                except IndexError:
+                    continue
+            print(self.related)
         
