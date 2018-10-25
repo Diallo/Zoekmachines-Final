@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h3>Search a TED talk</h3>
+    <form action="/res" method="get">
+       <input type="text" name="q" placeholder="Search.."/>
+       <input type="submit" value="Search"/>
+    </form> 
+{% endblock %}

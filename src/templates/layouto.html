@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <html lang="en">
+    <head>
+        <title>The Four Searchketeers on TED Talks</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+        
+        /*
+        Navigation bars
+        */
+        
+        /* Remove the navbar's default margin-bottom and rounded borders */ 
+        .navbar {
+          margin-bottom: 0;
+          border-radius: 0;
+        }
+        
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 450px}
+        
+        /* Set gray background color and 100% height */
+        .sidenav {
+          padding-top: 20px;
+          background-color: #f1f1f1;
+        }
+        
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+            padding: 15px;
+          }
+          .row.content {height:auto;} 
+        }
+        
+        /* 
+        Faceted search elements in left navigation bar
+        */
+        
+        /* Customize the label (the container) */
+        .container {
+          display: block;
+          position: relative;
+          padding-left: 35px;
+          margin-bottom: 12px;
+          cursor: pointer;
+          font-weight: normal;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        
+        /* Hide the browser's default checkbox */
+        .container input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+        
+        /* Create a custom checkbox */
+        .checkmark {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 25px;
+          width: 25px;
+          background-color: #DCDCDC;
+        }
+        
+        /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+          background-color: #ccc;
+        }
+        
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+          background-color: #2196F3;
+        }
+        
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+        
+        /* Show the checkmark when checked */
+        .container input:checked ~ .checkmark:after {
+          display: block;
+        }
+        
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
+          left: 9px;
+          top: 5px;
+          width: 5px;
+          height: 10px;
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+        
+        /*
+        Footer
+        */
+        
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: grey;
+            color: white;
+            text-align: center;
+        }  
+        </style>
+    </head>
+    
+    <body>
+      
+      <!--
+      Top navigation bar with logo, Home and reference to SE website.
+      -->
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand"><img src="static/img/logo.png" alt="Logo", resize ="both",  width=120%, height=120%></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://maartenmarx.nl/teaching/zoekmachines/">Search Engines Course Website</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+      <!--
+      Left navigation bar with search by title, year and topic.
+      -->
+      <div class="container-fluid text-center">    
+        <div class="row content">
+          <div class="col-sm-2 sidenav" align="left">
+            <div class="well">
+               <h4>Search by title</h4>
+                 <form action="/res" method="get">
+                     <input type="text" name="title" placeholder="Title.." style='width:100%'/>
+                     <input type="submit" value="Title"/>
+                 </form> 
+            </div> 
+        
+            <div class="well">
+                 <h4>Search by year</h4>
+                 <div class="slidecontainer">
+                   <input type="range" name="year" min="1" max="100" value="50" class="slider" id="myRange">
+                   <input type="submit" value="Year"/>
+                 </div>
+            </div> 
+        
+            <div class="well" align="left">
+                 <h4>Search by topic</h4>
+                 <label class="container">Technology
+                   <input type="checkbox" checked="checked">
+                   <span class="checkmark"></span>
+                 </label>
+                 
+                 <label class="container">Entertainment
+                   <input type="checkbox">
+                   <span class="checkmark"></span>
+                 </label>
+                 
+                 <label class="container">Design
+                   <input type="checkbox">
+                   <span class="checkmark"></span>
+                 </label>
+                 
+                 <label class="container">Business
+                   <input type="checkbox">
+                   <span class="checkmark"></span>
+                 </label> 
+                 
+                 <label class="container">Science
+                   <input type="checkbox">
+                   <span class="checkmark"></span>
+                 </label> 
+                 
+                 <label class="container">Global issues
+                   <input type="checkbox">
+                   <span class="checkmark"></span>
+                 </label> 
+                 
+                 <label class="container">Other
+                   <input type="checkbox">
+                   <span class="checkmark"></span>
+                 </label> 
+                 
+                 <input type="submit" value="Topic" placeholder="Go"/>
+            </div> 
+          </div>
+
+      <!--
+      Central text with Welcome message and Google look-a-like search
+      -->
+      <div class="col-sm-8 text-left"> 
+        <h2>Welcome</h2>
+        <p>The Four Searchketeers, Carolien, Nadja, Mo and Robin, are hunting for amazing TED talks.</p></p>
+        <hr>
+        <p>{% block body %}{% endblock %}</p>
+      </div>
+
+      <!--
+      Right navigation bar with adverts.
+      -->
+      <div class="col-sm-2 sidenav">
+        <div class="well">
+          <p>Painting for sale!</p>
+          <img src="/static/img/MMpainted.jpg" width=100% height=100%>
+        </div>
+        <div class="well">
+          <p>Unique Maroxophone found at the University of Amsterdam</p>
+          <img src="/static/img/MAROXOPHONE.jpg" width=100% height=100%>
+        </div>
+      </div>
+  
+      <!--
+      Footer with student names and id's.
+      -->
+      <footer class="footer">
+        <p>Carolien Maas (11026650), Nadja van 't Hoff (11030720), Mo Diallo (11317329) and Robin Wacanno (11741163)</p>
+      </footer>
+      
+    </body>
+</html>

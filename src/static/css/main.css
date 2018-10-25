@@ -1,0 +1,139 @@
+@font-face {
+    font-family: Helvetica;
+    src: url(../font/Helvetica.ttf);
+}
+
+html body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica;
+}
+
+footer {
+    width: 100vw;
+    height: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 10pt;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #e62b1e;
+    margin: 1em 0;
+    padding: 0; 
+}
+
+.wrap_home {
+    width: 60vw;
+    min-width: 756px;
+    height: calc(75vh - 25px);
+    margin-left: auto;
+    margin-right: auto;
+    /*background-color: blue;*/
+}
+
+.wrap {
+    width: 60vw;
+    min-width: 756px;
+    height: calc(100vh - 25px);
+    margin-left: auto;
+    margin-right: auto;
+    /*background-color: blue;*/
+}
+
+
+.logo img {
+    display: block;
+    width: 50%;
+    margin-top: 25vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.head {
+    height: 60px;
+}
+
+.head .logo {
+    display: inline-block;
+    width: 20%;
+}
+
+.wrap .head .logo img {
+    width: 100%;
+    margin: 0;
+}
+
+.search {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.head .search {
+    position: relative;
+    top: -27px;
+    width: 50%;
+    margin: 0;
+    text-align: center;
+}
+
+.swrap {
+    display: inline-block;
+    min-width: 350px;
+}
+
+.search input {
+    display: inline-block;
+    float: none;
+}
+
+.field {
+    width: 75%;
+    max-width: 300px;
+}
+
+.nbut {
+    background-color: white;
+    border: 1;
+}
+
+/* Result element */
+
+.res {
+    margin-bottom: 15px;
+    padding: 5px;
+    background-color: #f7f7f7;
+}
+
+.res .title {
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+.res .title a:link, a:visited {
+    text-decoration: none;
+    color: blue;
+    cursor: pointer;
+}
+
+.res .info {
+    color: #757474;
+    font-size: 10pt;
+}
+
+.res .info .speaker, 
+.res .info .date {
+    color: black;
+    font-style: italic;
+    font-size: 12pt;
+}
+
+.res .info .desc {
+    display: block;
+    color: black;
+    font-size: 12pt;
+}

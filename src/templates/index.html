@@ -1,6 +1,14 @@
-{% extends 'layout.html' %}
+{% extends 'layout_h.html' %}
+
+{% block tile %}Home{% endblock %}
 
 {% block body %}
-     <a href="/search">zoeken</a>
+<div class="search">
+    <div class="swrap">
+        <form action="/res" method="get">
+        <input class="field" type="text" name="q"/>
+        <input class="nbut" type="submit" value="Search"/>
+    </form>
+    </div>
+</div>
 {% endblock %}
-

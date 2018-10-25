@@ -1,9 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>iets</title>
+        <title>TEDsearch - {% block title %}{% endblock %}</title>
+        <link href="../css/main.css?v=0.12345" type="text/css" rel="stylesheet"/>
+        {% block head %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="wrap">
+            <div class="head">
+                <a href="/"><div class="logo">
+                    <img src="../img/logo.png"></img>
+                </div></a>
+                <div class="search">
+                    <div class="swrap">
+                        <form action="/res" method="get">
+                            <input class="field" type="text" name="q"/>
+                            <input class="nbut" type="submit" value="Search"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="content">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
     </body>
+    <footer>
+            {% block footer %}{% endblock %}
+            Deze prachtige zoekmachine is gemaakt door: Carolien Maas (11026650), Nadja van 't Hoff (11030720), Mo Diallo (11317329) and Robin Wacanno (11741163).
+    </footer>
 </html>
