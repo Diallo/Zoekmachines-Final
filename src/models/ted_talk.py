@@ -19,7 +19,10 @@ class TedTalk:
         else:
             # Executed if no talk is found
             raise ValueError('Unknown Talk ID')
-        
+
+
+        self.id = talk_id
+
         # Generate embed url
         s1 = self.data['url'].split('www', 1)
         self.embed = f"{s1[0]}embed{s1[1]}"
@@ -44,7 +47,13 @@ class TedTalk:
         # Convert pdate to human interpritable string
         pint = int(self.data['published_date'])
         self.pdate = dt.utcfromtimestamp(pint).strftime('%d %B %Y')
-        
+
+
+
+        try:
+            self.transcript = self.data['transcript']
+        except:
+            self.transcript = ""
         # Get related talks if needed
         if get_related:
             self.related = []

@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch, RequestError
 
+from src.wordclouds import create_cloud
 
 app = Flask(__name__)
 app.elasticsearch = Elasticsearch(["http://localhost:9200"])
@@ -183,6 +184,8 @@ def talk(talk_id):
         t = TedTalk(talk_id, True)
     except ValueError as e:
         return str(e)
+
+    create_cloud(talk_id,t.transcript)
     return render_template('talk.html', talk=t)
 
 
