@@ -3,7 +3,6 @@ from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch, RequestError
 
 
-
 app = Flask(__name__)
 app.elasticsearch = Elasticsearch(["http://localhost:9200"])
 
@@ -92,7 +91,19 @@ def search():
 
 @app.route('/res')
 def result():
-    return render_template('result.html')
+    q = request.args.get('q')
+    res = search_all(q)
+    r_str = ""
+    for t_id in res:
+        talk = TedTalk(t_id)
+        r_str += talk.res_el()
+    return render_template('result.html', r=r_str)
+    
+    
+@app.route('/wordcloud')
+def wordcloud():
+    q = request.args.get('q')
+    return render_template('wordcloud.html')
     
 
 @app.route('/talk/<int:talk_id>')

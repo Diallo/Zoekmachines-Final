@@ -184,7 +184,7 @@ hr {
     float: left;
     width: calc(40% - 10px);
     padding: 5px;
-    background-color: #dbdbdb;
+    background-color: #ededed;
 }
 
 .talk .desc .about {

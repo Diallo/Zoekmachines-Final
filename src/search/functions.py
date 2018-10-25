@@ -127,13 +127,15 @@ def search_all(term):
 
     print("%d documents found" % res['hits']['total'])
     print(res['hits']['max_score'])
+    rdocs = []
     for doc in res['hits']['hits']:
-        print("%s) %s" % (doc['_id'], doc['_source']['name']))
-        print("%s) %s" % (doc['_id'], doc['_source']['description']))
-        print("%s) %s" % (doc['_id'], doc['_source']['main_speaker']))
-        print("%s) %s" % (doc['_id'], doc['_source']['title']))
-        print("%s) %s" % (doc['_id'], doc['_source']['url']))
-        print(doc['_score'])
-        print("\n\n")
+        # print("%s) %s" % (doc['_id'], doc['_source']['name']))
+        # print("%s) %s" % (doc['_id'], doc['_source']['description']))
+        # print("%s) %s" % (doc['_id'], doc['_source']['main_speaker']))
+        # print("%s) %s" % (doc['_id'], doc['_source']['title']))
+        # print("%s) %s" % (doc['_id'], doc['_source']['url']))
+        # print(doc['_score'])
+        # print("\n\n")
+        rdocs.append(int(doc['_id']))
 
-    return "a"
+    return rdocs

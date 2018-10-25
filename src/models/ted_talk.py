@@ -35,7 +35,7 @@ class TedTalk:
             self.info = requests.get(f"https://www.ted.com/services/v1/oembed.json?url="
                                      f"{self.data['url']}").json()
         except Exception:
-            self.info = {thumbnail_url: "https://www.nationalacademic.nl/sites/all/modules/aserv/aserv_media/images/banaan-gezond3.jpg"}
+            self.info = {'thumbnail_url': "https://www.nationalacademic.nl/sites/all/modules/aserv/aserv_media/images/banaan-gezond3.jpg"}
         
         # Convert fdate to human interpritable string
         fint = int(self.data['film_date'])
@@ -48,7 +48,7 @@ class TedTalk:
         # Get related talks if needed
         if get_related:
             self.related = []
-            n = 5
+            n = 3
             for r in ast.literal_eval(self.data['related_talks']):
                 n -= 1
                 if n < 1:
@@ -61,4 +61,15 @@ class TedTalk:
                 except IndexError:
                     continue
             print(self.related)
-        
+    
+    def res_el(self):
+        return(f"""
+<div class="res">
+    <div class="title"><a href="talk/{self.data['_id']}">{self.name}</a></div>
+    <div class="info">
+        by: <span class="speaker">{self.data['main_speaker']}</span>
+        on:<span class="date">{self.fdate}</span>
+        <span class="desc">{self.data['description']}</span>
+    </div>
+</div>
+        """)
