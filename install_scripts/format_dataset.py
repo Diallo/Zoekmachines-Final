@@ -49,9 +49,9 @@ with open('../data/transcripts.csv') as csv_file:
             line_count+=1
 
 
-print(all_data[0])
 
 
 
-f = open("talks_data.json", "w")
+
+f = open("../data/talks_data.json", "w")
 f.write(json.dumps(all_data))
