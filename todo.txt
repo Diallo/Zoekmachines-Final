@@ -1,6 +1,5 @@
 1.) Memcached
 2.) Make transcript searching optional
-3.) Add advanced search options to GUI
 4.) Faceted search
 5.) Do evaluations
 
