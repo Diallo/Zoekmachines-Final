@@ -32,8 +32,8 @@ class TedTalk:
         
         # Get talk info
         try:
-            self.info = requests.get(f"https://www.ted.com/services/v1/oembed.json?url="
-                                     f"{self.data['url']}").json()
+            url = "https://www.ted.com/services/v1/oembed.json"
+            self.info = requests.get(url, params={'url': self.data['url'][:-1]}).json()
         except Exception:
             self.info = {'thumbnail_url': "https://www.nationalacademic.nl/sites/all/modules/aserv/aserv_media/images/banaan-gezond3.jpg"}
         
@@ -48,19 +48,13 @@ class TedTalk:
         # Get related talks if needed
         if get_related:
             self.related = []
-            n = 3
             for r in ast.literal_eval(self.data['related_talks']):
-                n -= 1
-                if n < 1:
-                    break
                 try:
                     for t in data:
                         if t['name'] == f"{r['speaker']}: {r['title']}":
                             self.related.append(TedTalk(t['_id']))
-                            break
                 except IndexError:
                     continue
-            print(self.related)
     
     def res_el(self):
         return(f"""
@@ -73,3 +67,12 @@ class TedTalk:
     </div>
 </div>
         """)
+        
+    def rel_el(self):
+        r_str = ""
+        for talk in self.related:
+            r_str += f"""
+<img src="{talk.info['thumbnail_url']}"></img>
+            """
+        return r_str
+        
