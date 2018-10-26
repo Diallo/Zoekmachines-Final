@@ -1,12 +1,17 @@
+Important:
+"" Strict phrase matching
+Option to disable/enable searching within transcript
+Show query terms used by user
+Statistics
+
+
 1.) Memcached
 2.) Make transcript searching optional
 4.) Faceted search
 5.) Do evaluations
 
-
 =======]
 Auto complete search (?)
 Visualize hits over time
 TODO: DOCS WITHOUT TRANSCRIPT
-TODO: Remove laughter/crowd reactions
 TODO: Fix the advanced search
