@@ -116,7 +116,7 @@ hr {
 
 .res .title a:link, a:visited {
     text-decoration: none;
-    color: blue;
+    color: #e62b1e;
     cursor: pointer;
 }
 
@@ -206,6 +206,11 @@ hr {
     overflow: hidden;
 }
 
+.talk .rel_wrap .related {
+    display: block;
+    font-size: 15pt;
+}
+
 .talk .rel_wrap .rel_el {
     float: left;
     margin-left: 1%;
@@ -223,17 +228,22 @@ hr {
 }
 
 .talk .rel_wrap .rel_el .title {
-    font-weight: bold;
-    font-size: 16pt;
+    font-size: 14pt;
     margin-bottom: 2%;
 }
 
 .talk .rel_wrap .rel_el .title a:link, a:visited {
     text-decoration: none;
-    color: blue;
+    color: #e62b1e;
     cursor: pointer;
 }
 
 .talk .wordcloud {
     width: 100%;
+}
+
+.term-display {
+    display: block;
+    font-size: 14pt;
+    font-style: italic;
 }

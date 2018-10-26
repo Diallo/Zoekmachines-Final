@@ -1,18 +1,13 @@
 {% extends 'layout.html' %}
 
-{% block tile %}Result{% endblock %}
+{% block title %}Result: {{ query }}{% endblock %}
 
 
 {% block body %}
-    <style>
-    .term-display {
-    width: 100%;
-    margin: 50px;
-}
-    </style>
     <div class="term-display">
-    {{ query }}
-        </div>
+    Showing results for: {{ query }}
+    <hr />
+    </div>
 
     {{ r|safe }}
 

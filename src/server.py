@@ -177,6 +177,129 @@ def show_statistics():
     print(len(year))
     print(len(tags))
     return render_template('statistics.html', **locals())
+    
+    
+    
+
+
+@app.route("/statistics1")
+def show_statistics1():
+    tags = defaultdict(int)
+    year = defaultdict(int)
+    event = defaultdict(int)
+    durations = []
+    languages = []
+    views = []
+
+
+    with open(DEFAULT_DATA_PATH, 'r') as file:
+        data = json.load(file)
+
+        for talk in data:
+            list_tags = ast.literal_eval(talk['tags']) # This bad
+
+            for tag in list_tags:
+
+                tags[tag] += 1
+
+
+            # year["{}-01-01".format(datetime.fromtimestamp(int(talk['film_date'])).year)] += 1
+            year[datetime.fromtimestamp(int(talk['film_date'])).year] += 1
+            event[talk['event']] += 1
+            durations.append(int(talk['duration']))
+            languages.append(int(talk['languages']))
+            views.append(int(talk['views']))
+
+    yearkeys = sorted(year)
+    
+    
+    duration = sum(durations)/len(durations) 
+    languages = sum(languages)/len(languages)
+    views = sum(views)/len(views)
+ 
+    print(len(event))
+    print(len(year))
+    print(len(tags))
+    return render_template('statistics1.html', **locals())
+    
+    
+
+@app.route("/statistics2")
+def show_statistics2():
+    tags = defaultdict(int)
+    year = defaultdict(int)
+    event = defaultdict(int)
+    durations = []
+    languages = []
+    views = []
+
+
+    with open(DEFAULT_DATA_PATH, 'r') as file:
+        data = json.load(file)
+
+        for talk in data:
+            list_tags = ast.literal_eval(talk['tags']) # This bad
+
+            for tag in list_tags:
+
+                tags[tag] += 1
+
+
+            # year["{}-01-01".format(datetime.fromtimestamp(int(talk['film_date'])).year)] += 1
+            year[datetime.fromtimestamp(int(talk['film_date'])).year] += 1
+            event[talk['event']] += 1
+            durations.append(int(talk['duration']))
+            languages.append(int(talk['languages']))
+            views.append(int(talk['views']))
+
+    yearkeys = sorted(year)
+
+    print(len(durations))
+    print(len(languages))
+    print(len(views))
+    print(len(event))
+    print(len(year))
+    print(len(tags))
+    return render_template('statistics2.html', **locals())
+    
+    
+@app.route("/statistics3")
+def show_statistics3():
+    tags = defaultdict(int)
+    year = defaultdict(int)
+    event = defaultdict(int)
+    durations = []
+    languages = []
+    views = []
+
+
+    with open(DEFAULT_DATA_PATH, 'r') as file:
+        data = json.load(file)
+
+        for talk in data:
+            list_tags = ast.literal_eval(talk['tags']) # This bad
+
+            for tag in list_tags:
+
+                tags[tag] += 1
+
+
+            # year["{}-01-01".format(datetime.fromtimestamp(int(talk['film_date'])).year)] += 1
+            year[datetime.fromtimestamp(int(talk['film_date'])).year] += 1
+            event[talk['event']] += 1
+            durations.append(int(talk['duration']))
+            languages.append(int(talk['languages']))
+            views.append(int(talk['views']))
+
+    yearkeys = sorted(year)
+
+    print(len(durations))
+    print(len(languages))
+    print(len(views))
+    print(len(event))
+    print(len(year))
+    print(len(tags))
+    return render_template('statistics3.html', **locals())
 
 
 @app.route("/create_index")
