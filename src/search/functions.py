@@ -20,11 +20,23 @@ def search_multiple(fields,transcript):
     }
 
     # TODO: description and range
-
+    query_used = {}
     for field in fields:
         query_field, query_value = next(iter(field.items()))
 
+
+
         if query_field == "term":
+
+            query_value = query_value.lower().split()
+
+            query_value = [word for word in query_value if word not in stopwords.words('english')]
+
+            query_value = [spell(query_value) for query_value in query_value]
+            query_value = " ".join(query_value)
+
+            print(query_value)
+
             query['query']['bool']['should'].append({"match": {"description": query_value}})
             query['query']['bool']['should'].append({"match": {"title": query_value}})
             if transcript:
@@ -56,6 +68,8 @@ def search_multiple(fields,transcript):
             min_value = query_value['min']
             max_value = query_value['max']
             query['query']['bool']['must'].append({"range": {"duration": {"gte": min_value, "lte": max_value}}})
+        query_used[query_field] = query_value
+
 
     res = app.elasticsearch.search(index="testdata", doc_type="generated",
 
@@ -66,7 +80,7 @@ def search_multiple(fields,transcript):
     rdocs = []
     for doc in res['hits']['hits']:
         rdocs.append(int(doc['_id']))
-    return rdocs
+    return rdocs,query_used
 
 
 def search_all(term, transcript):
@@ -115,4 +129,4 @@ def search_all(term, transcript):
     for doc in res['hits']['hits']:
         rdocs.append(int(doc['_id']))
 
-    return rdocs
+    return rdocs,term
