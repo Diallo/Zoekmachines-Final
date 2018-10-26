@@ -1,20 +1,16 @@
 Important:
 "" Strict phrase matching
-Option to disable/enable searching within transcript
-Show query terms used by user
+Show query terms used by user as feedback
 Statistics
 Term searching for advanced search
 
-
+Login required during presentation mode
 
 
 1.) Memcached
-2.) Make transcript searching optional
 4.) Faceted search
 5.) Do evaluations
 
 =======]
 Auto complete search (?)
 Visualize hits over time
-TODO: DOCS WITHOUT TRANSCRIPT
-TODO: Fix the advanced search
