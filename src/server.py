@@ -1,9 +1,15 @@
 # TODO: This gets done multiple times
+
+
+
+    return decorated_function
+
+from functools import wraps
 import ast
 import json
 from collections import defaultdict, Counter
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from elasticsearch import Elasticsearch, RequestError
 
 from config import DEFAULT_DATA_PATH
@@ -20,7 +26,25 @@ from src.models.ted_talk import TedTalk
 from datetime import datetime
 
 
+def login_required(f):
+    """ Function decorator assumes character name is set on login and unset on logout"""
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('password') is None:
+            return "No login"
+        return f(*args, **kwargs)
+
+
+
+@app.route("/logmein")
+def login_me():
+    session['password'] = "good"
+
+
+
 @app.route("/mult_search")
+@login_required
 def  mult_search():
     """Search in multiple fields within ted talks
 
@@ -141,6 +165,7 @@ def  mult_search():
 
 
 @app.route("/statistics")
+@login_required
 def show_statistics():
     tags = defaultdict(int)
     year = defaultdict(int)
@@ -183,6 +208,7 @@ def show_statistics():
 
 
 @app.route("/statistics1")
+@login_required
 def show_statistics1():
     tags = defaultdict(int)
     year = defaultdict(int)
@@ -225,6 +251,7 @@ def show_statistics1():
     
 
 @app.route("/statistics2")
+@login_required
 def show_statistics2():
     tags = defaultdict(int)
     year = defaultdict(int)
@@ -264,6 +291,7 @@ def show_statistics2():
     
     
 @app.route("/statistics3")
+@login_required
 def show_statistics3():
     tags = defaultdict(int)
     year = defaultdict(int)
@@ -303,6 +331,7 @@ def show_statistics3():
 
 
 @app.route("/create_index")
+@login_required
 def create_index():
     """
 
@@ -315,6 +344,7 @@ def create_index():
         return "already have index"
 
 @app.route("/start_indexing")
+@login_required
 def start_indexing():
     """
 
@@ -328,21 +358,25 @@ def start_indexing():
 
 
 @app.route('/<path:path>')
+@login_required
 def static_file(path):
     return app.send_static_file(path)
 
 
 @app.route('/')
+@login_required
 def index():
     return render_template('index.html')
 
 
 @app.route('/search')
+@login_required
 def search():
     return render_template('search.html')
 
 
 @app.route('/res')
+@login_required
 def result():
     q = request.args.get('q')
     transcript = request.args.get("search_transcript") == "True"
@@ -357,12 +391,14 @@ def result():
     
     
 @app.route('/wordcloud')
+@login_required
 def wordcloud():
     q = request.args.get('q')
     return render_template('wordcloud.html')
     
 
 @app.route('/talk/<int:talk_id>')
+@login_required
 def talk(talk_id):
     try:
         t = TedTalk(talk_id, True)
