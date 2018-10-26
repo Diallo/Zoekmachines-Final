@@ -8,30 +8,7 @@ from nltk.corpus import stopwords
 from src.server import app
 
 
-# def search_all(term):
-#     res = app.elasticsearch.search(index="testdata", doc_type="generated",
-#
-#                                    body={
-#                                        "query": {
-#                                            "multi_match": {
-#                                                "query": term,
-#                                                "type": "most_fields",
-#                                                "fields": ["description","event","main_speaker","name^50","speaker_occupation","tags","title^2","transcript"]
-#                                            }
-#                                        }
-#                                    })
-#
-#     print("%d documents found" % res['hits']['total'])
-#     print(res['hits']['max_score'])
-#     for doc in res['hits']['hits']:
-#         print("%s) %s" % (doc['_id'], doc['_source']['name']))
-#         print("%s) %s" % (doc['_id'], doc['_source']['description']))
-#         print(doc['_score'])
-#         print("\n\n")
-#
-#     return "a"
-
-def search_multiple(fields):
+def search_multiple(fields,transcript):
     query = {"query":
         {
             "bool": {
@@ -46,6 +23,13 @@ def search_multiple(fields):
 
     for field in fields:
         query_field, query_value = next(iter(field.items()))
+
+        if query_field == "term":
+            query['query']['bool']['should'].append({"match": {"description": query_value}})
+            query['query']['bool']['should'].append({"match": {"title": query_value}})
+            if transcript:
+                query['query']['bool']['should'].append({"match": {"transcript": query_value}})
+
 
         if query_field == "event":
             query['query']['bool']['must'].append({"match": {"event": query_value}})

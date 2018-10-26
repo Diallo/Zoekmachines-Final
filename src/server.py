@@ -117,16 +117,16 @@ def  mult_search():
         max_date = datetime.now().strftime("%s")
     else:
         max_date = datetime.strptime(max_date, '%Y-%m-%d').strftime("%s")
-
-
-
     fields.append({'film_date': {"min": 	min_date, "max": 	max_date}}) # Unix timestamp
 
 
 
+    term = request.args.get('search_term').strip()
+    if term is not None and term != "":
+        fields.append({'term': term})
 
-
-    res = search_multiple(fields)
+    transcript = request.args.get("search_transcript") == "True"
+    res = search_multiple(fields,transcript)
     r_str = ""
     for t_id in res:
         talk = TedTalk(t_id)
