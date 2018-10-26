@@ -12,7 +12,7 @@ from src.search.functions import search_all,search_multiple
 from src.initialization import start_index
 
 from src.models.ted_talk import TedTalk
-
+from datetime import datetime
 
 
 @app.route("/mult_search")
@@ -102,18 +102,30 @@ def  mult_search():
         min_duration = 0
     if max_duration is None or max_duration == "":
         max_duration = 500000
-    fields.append({'duration': {"min": int(min_duration), "max": int(max_duration)}})
-
-
-    # TODO
-    # fields.append({'film_date': {"min": 	1140825500, "max": 	1140825900}}) # Unix timestamp
+    fields.append({'duration': {"min": int(min_duration)*60, "max": int(max_duration)*60}})
 
 
 
-    # fields.append({'views': {"min": 5, "max": 47527110}})
+    min_date = request.args.get('min_date').strip()
+    max_date = request.args.get('max_date').strip()
+    if min_date is None or min_date == "":
+        min_date = 0
+    else:
+        min_date = datetime.strptime(min_date, '%Y-%m-%d').strftime("%s")
+
+    if max_date is None or max_date == "":
+        max_date = datetime.now().strftime("%s")
+    else:
+        max_date = datetime.strptime(max_date, '%Y-%m-%d').strftime("%s")
 
 
-    print(fields)
+
+    fields.append({'film_date': {"min": 	min_date, "max": 	max_date}}) # Unix timestamp
+
+
+
+
+
     res = search_multiple(fields)
     r_str = ""
     for t_id in res:

@@ -35,8 +35,8 @@ def create_index():
                         "type": "date",
 
                     },
-                    "ratings": {"type": "text"}, #TODO
-                    "related_talks": {"type": "text"}, #TODO
+                    "ratings": {"type": "text"},
+                    "related_talks": {"type": "text"},
                     "speaker_occupation": {"type": "text"},
                     "tags": {"type": "text"},
                     "title": {"type": "text"},
@@ -62,10 +62,5 @@ def index(data=config.DEFAULT_DATA_PATH):
     """
     with open(data) as raw_data:
         json_docs = json.load(raw_data)
-
         helpers.bulk(app.elasticsearch, json_docs, index='testdata', doc_type='generated')
 
-        # for json_doc in json_docs:
-        #     my_id = json_doc.pop('_id', None)
-        #
-        #     app.elasticsearch.index(index='testdata', doc_type='generated', id=my_id, body=json.dumps(json_doc))
