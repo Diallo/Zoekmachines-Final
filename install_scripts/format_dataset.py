@@ -51,8 +51,14 @@ with open('../data/transcripts.csv') as csv_file:
 
 
 
+import re
+for data in all_data:
+    try:
 
+        data['transcript'] =re.sub(r'\([^)]*\)', '', data['transcript'])
 
+    except KeyError:
+        data['transcript'] = "No Transcript Available"
 
 f = open("../data/talks_data.json", "w")
 f.write(json.dumps(all_data))

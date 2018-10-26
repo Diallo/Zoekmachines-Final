@@ -1,5 +1,16 @@
-1.) Start elasticsearch/ after installinbg
-2.)sudo systemctl enable elasticsearch.service
+Important:
+"" Strict phrase matching
+Show query terms used by user as feedback
+Statistics
+Term searching for advanced search
+
+Login required during presentation mode
 
 
-3.) Memcached
+1.) Memcached
+4.) Faceted search
+5.) Do evaluations
+
+=======]
+Auto complete search (?)
+Visualize hits over time
