@@ -1,7 +1,12 @@
 # TODO: This gets done multiple times
+import ast
+import json
+from collections import defaultdict, Counter
+
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch, RequestError
 
+from config import DEFAULT_DATA_PATH
 from src.wordclouds import create_cloud
 
 app = Flask(__name__)
@@ -132,6 +137,47 @@ def  mult_search():
         talk = TedTalk(t_id)
         r_str += talk.res_el()
     return render_template('result.html', r=r_str,query=query)
+
+
+
+@app.route("/statistics")
+def show_statistics():
+    tags = defaultdict(int)
+    year = defaultdict(int)
+    event = defaultdict(int)
+    durations = []
+    languages = []
+    views = []
+
+
+    with open(DEFAULT_DATA_PATH, 'r') as file:
+        data = json.load(file)
+
+        for talk in data:
+            list_tags = ast.literal_eval(talk['tags']) # This bad
+
+            for tag in list_tags:
+
+                tags[tag] += 1
+
+
+            # year["{}-01-01".format(datetime.fromtimestamp(int(talk['film_date'])).year)] += 1
+            year[datetime.fromtimestamp(int(talk['film_date'])).year] += 1
+            event[talk['event']] += 1
+            durations.append(int(talk['duration']))
+            languages.append(int(talk['languages']))
+            views.append(int(talk['views']))
+
+    yearkeys = sorted(year)
+
+    print(len(durations))
+    print(len(languages))
+    print(len(views))
+    print(len(event))
+    print(len(year))
+    print(len(tags))
+    return render_template('statistics.html', **locals())
+
 
 @app.route("/create_index")
 def create_index():
