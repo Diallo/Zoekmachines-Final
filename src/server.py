@@ -126,12 +126,12 @@ def  mult_search():
         fields.append({'term': term})
 
     transcript = request.args.get("search_transcript") == "True"
-    res = search_multiple(fields,transcript)
+    res,query = search_multiple(fields,transcript)
     r_str = ""
     for t_id in res:
         talk = TedTalk(t_id)
         r_str += talk.res_el()
-    return render_template('result.html', r=r_str)
+    return render_template('result.html', r=r_str,query=query)
 
 @app.route("/create_index")
 def create_index():
@@ -179,12 +179,12 @@ def result():
     transcript = request.args.get("search_transcript") == "True"
 
 
-    res = search_all(q,transcript)
+    res,query = search_all(q,transcript)
     r_str = ""
     for t_id in res:
         talk = TedTalk(t_id)
         r_str += talk.res_el()
-    return render_template('result.html', r=r_str)
+    return render_template('result.html', r=r_str,query=query)
     
     
 @app.route('/wordcloud')
