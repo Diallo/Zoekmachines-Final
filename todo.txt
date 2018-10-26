@@ -3,6 +3,9 @@ Important:
 Option to disable/enable searching within transcript
 Show query terms used by user
 Statistics
+Term searching for advanced search
+
+
 
 
 1.) Memcached

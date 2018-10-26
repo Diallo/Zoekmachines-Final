@@ -1,7 +1,6 @@
 """
 Description
 """
-import json
 
 from autocorrect import spell
 from nltk.corpus import stopwords
@@ -39,7 +38,6 @@ def search_multiple(fields):
                 "must": [],
                 "should": [],
 
-
             }
         }
     }
@@ -65,17 +63,15 @@ def search_multiple(fields):
             min_value = query_value['min']
             max_value = query_value['max']
 
-            query['query']['bool']['must'].append(  {"range":{"views": {"gte": min_value, "lte": max_value}}})
+            query['query']['bool']['must'].append({"range": {"views": {"gte": min_value, "lte": max_value}}})
         if query_field == "film_date":
             min_value = query_value['min']
             max_value = query_value['max']
-            query['query']['bool']['must'].append(  {"range":{"film_date": {"gte": min_value, "lte": max_value}}})
+            query['query']['bool']['must'].append({"range": {"film_date": {"gte": min_value, "lte": max_value}}})
         if query_field == "duration":
             min_value = query_value['min']
             max_value = query_value['max']
-            query['query']['bool']['must'].append(  {"range":{"duration": {"gte": min_value, "lte": max_value}}})
-
-
+            query['query']['bool']['must'].append({"range": {"duration": {"gte": min_value, "lte": max_value}}})
 
     res = app.elasticsearch.search(index="testdata", doc_type="generated",
 
@@ -85,18 +81,11 @@ def search_multiple(fields):
     print(res['hits']['max_score'])
     rdocs = []
     for doc in res['hits']['hits']:
-        # print("%s) %s" % (doc['_id'], doc['_source']['name']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['description']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['main_speaker']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['title']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['url']))
-        # print(doc['_score'])
-        # print("\n\n")
         rdocs.append(int(doc['_id']))
     return rdocs
 
 
-def search_all(term):
+def search_all(term, transcript):
     term = term.lower().split()
 
     term = [word for word in term if word not in stopwords.words('english')]
@@ -104,39 +93,42 @@ def search_all(term):
     term = [spell(term) for term in term]
     term = " ".join(term)
 
-    print(term)
+    if transcript:
+        query = {
+            "query": {
+                "dis_max": {
+                    "queries": [
+                        {"match": {"description": term}},
+                        {"match": {"event": term}},
+                        {"match": {"main_speaker": term}},
+                        {"match": {"name": term}},
+                        {"match": {"speaker_occupation": term}},
+                        {"match": {"tags": term}},
+                        {"match": {"title": term}},
+                        {"match": {"transcript": term}},
+                    ],
+                    "tie_breaker": 0.3
+                }
+            }
+        }
+    else:
+        query = {"query": {
+            "multi_match": {
+                "query": term,
+                "type": "most_fields",
+                "fields": ["description", "event", "main_speaker", "name", "speaker_occupation", "tags", "title",
+                           ]
+            }
+        }}
 
     res = app.elasticsearch.search(index="testdata", doc_type="generated",
 
-                                   body={
-                                       "query": {
-                                           "dis_max": {
-                                               "queries": [
-                                                   {"match": {"description": term}},
-                                                   {"match": {"event": term}},
-                                                   {"match": {"main_speaker": term}},
-                                                   {"match": {"name": term}},
-                                                   {"match": {"speaker_occupation": term}},
-                                                   {"match": {"tags": term}},
-                                                   {"match": {"title": term}},
-                                                   {"match": {"transcript": term}},
-                                               ],
-                                               "tie_breaker": 0.3
-                                           }
-                                       }
-                                   })
+                                   body=query)
 
     print("%d documents found" % res['hits']['total'])
     print(res['hits']['max_score'])
     rdocs = []
     for doc in res['hits']['hits']:
-        # print("%s) %s" % (doc['_id'], doc['_source']['name']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['description']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['main_speaker']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['title']))
-        # print("%s) %s" % (doc['_id'], doc['_source']['url']))
-        # print(doc['_score'])
-        # print("\n\n")
         rdocs.append(int(doc['_id']))
 
     return rdocs

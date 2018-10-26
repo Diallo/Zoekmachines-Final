@@ -176,7 +176,10 @@ def search():
 @app.route('/res')
 def result():
     q = request.args.get('q')
-    res = search_all(q)
+    transcript = request.args.get("search_transcript") == "True"
+
+
+    res = search_all(q,transcript)
     r_str = ""
     for t_id in res:
         talk = TedTalk(t_id)
