@@ -54,7 +54,9 @@ with open('../data/transcripts.csv') as csv_file:
 import re
 for data in all_data:
     try:
-        data['transcript'] =re.sub(r'\(.*\)', '', data['transcript'])
+
+        data['transcript'] =re.sub(r'\([^)]*\)', '', data['transcript'])
+
     except KeyError:
         data['transcript'] = "No Transcript Available"
 
