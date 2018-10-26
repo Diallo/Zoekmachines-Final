@@ -41,6 +41,6 @@ def create_cloud(doc_id,text):
     stopwords.add("talk")
 
     wc = WordCloud(max_words=1000, mask=mask, stopwords=stopwords, margin=10,
-                   random_state=1).generate(text)
+                   random_state=1, background_color="white").generate(text)
 
     wc.to_file("src/static/img/clouds/{}.png".format(doc_id))

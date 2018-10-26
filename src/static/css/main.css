@@ -200,3 +200,40 @@ hr {
 .talk .desc .seg .lable {
     font-weight: bold;
 }
+
+.talk .rel_wrap {
+    width: 95%;
+    overflow: hidden;
+}
+
+.talk .rel_wrap .rel_el {
+    float: left;
+    margin-left: 1%;
+    margin-right: 1%;
+    background-color: #f7f7f7;
+}
+
+.talk .rel_wrap .rel_el .thumb {
+    width: 96%;
+    height: 150px;
+    margin: 2%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.talk .rel_wrap .rel_el .title {
+    font-weight: bold;
+    font-size: 16pt;
+    margin-bottom: 2%;
+}
+
+.talk .rel_wrap .rel_el .title a:link, a:visited {
+    text-decoration: none;
+    color: blue;
+    cursor: pointer;
+}
+
+.talk .wordcloud {
+    width: 100%;
+}

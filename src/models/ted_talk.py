@@ -79,9 +79,17 @@ class TedTalk:
         
     def rel_el(self):
         r_str = ""
-        for talk in self.related:
+        lim = 5
+        num = min(5, len(self.related))
+        width = ((100/num)-2)
+        for i, talk in enumerate(self.related):
+            if i == lim:
+                break
             r_str += f"""
-<img src="{talk.info['thumbnail_url']}"></img>
+<div class="rel_el" style="width:{width}%">
+    <div class="thumb" style="background-image:url({talk.info['thumbnail_url']})"></div>
+    <span class="title"><a href="../talk/{talk.data['_id']}">{talk.name}</a></span>
+</div>
             """
         return r_str
         

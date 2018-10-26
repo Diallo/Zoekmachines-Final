@@ -28,10 +28,11 @@
                     <span class="lable">Tags:</span> {{ talk.tags }}
                 </div>
             </div>
-            {{ talk.rel_el()|safe }}
         </div>
+        <div class="rel_wrap">
+        <span class="related">Related:</span>
+                {{ talk.rel_el()|safe }}
+        </div>
+        <img src="/static/img/clouds/{{ talk.id }}.png" class="wordcloud">
     </div>
-
-
-    <img src="/static/img/clouds/{{ talk.id }}.png">
 {% endblock %}
